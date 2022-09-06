@@ -7,6 +7,17 @@ using UnityEngine;
 [RequireComponent(typeof(ClientNetworkTransform))]
 public class PlayerMovement : NetworkBehaviour
 {
+    public enum PlayerState 
+    {
+        Idle,
+        Walk,
+        ReverseWalk
+    }
+    [SerializeField]
+    private NetworkVariable<PlayerState> networkPlayerState = new NetworkVariable<PlayerState>();
+    private PlayerState oldPlayerState = PlayerState.Idle;
+    private Animator animator;
+
     // responsible for moving the character
     public float speed;
 
@@ -19,6 +30,10 @@ public class PlayerMovement : NetworkBehaviour
     private CharacterController m_CharacterController;
     private float xRotation = 0f;
 
+    private void Awake() 
+    {
+        animator = GetComponent<Animator>();
+    }
     public void Start() {
         //Cursor.lockState = CursorLockMode.Locked;
     }
@@ -45,6 +60,7 @@ public class PlayerMovement : NetworkBehaviour
             KeyboardInput();
             MouseInput();
         }
+        ClientVisuals();
     }
 
     private void KeyboardInput()
@@ -53,6 +69,13 @@ public class PlayerMovement : NetworkBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = transform.right * horizontal + transform.forward * vertical;
+        if (vertical == 0)  
+            UpdatePlayerStateServerRpc(PlayerState.Idle);
+        else if (vertical > 0 && vertical <= 1)
+            UpdatePlayerStateServerRpc(PlayerState.Walk);
+        else if (vertical < 0)
+            UpdatePlayerStateServerRpc(PlayerState.ReverseWalk);
+
         m_CharacterController.SimpleMove(direction * speed);
     }
     
@@ -67,5 +90,33 @@ public class PlayerMovement : NetworkBehaviour
         m_Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
+
+    private void ClientVisuals()
+    {
+        if (oldPlayerState != networkPlayerState.Value)
+        {
+            oldPlayerState = networkPlayerState.Value;
+            
+            if (networkPlayerState.Value == PlayerState.Walk)
+            {   
+                animator.SetFloat("Walk", 1);
+            }
+            if (networkPlayerState.Value == PlayerState.Idle)
+            {
+                animator.SetFloat("Walk", 0);
+            }
+            if (networkPlayerState.Value == PlayerState.ReverseWalk)
+            {
+                animator.SetFloat("Walk", -1);
+            }
+        }
+    }
+
+    [ServerRpc]
+    public void UpdatePlayerStateServerRpc(PlayerState state)
+    {
+        networkPlayerState.Value = state;
+    }
+
 
 }
