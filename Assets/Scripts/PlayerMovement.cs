@@ -8,24 +8,33 @@ using UnityEngine;
 public class PlayerMovement : NetworkBehaviour
 {
     // responsible for moving the character
-    public CharacterController controller;
     public float speed;
 
     //responsible for moving the camera
     public float mouseSensitivity = 100f;
-    public Transform playerBody;
+
+    [SerializeField]
+    private Camera m_Camera;
+
+    private CharacterController m_CharacterController;
     private float xRotation = 0f;
 
+    public void Start() {
+        //Cursor.lockState = CursorLockMode.Locked;
+    }
     //place the character
     public override void OnNetworkSpawn()
-    {
-        if (IsOwner)
+    {   
+        base.OnNetworkSpawn();
+        enabled = IsClient;
+        if (!IsOwner)
         {
-            //transform.position = new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
-            Camera.main.transform.SetParent(playerBody, false);
-            Camera.main.transform.position = transform.position + new Vector3(0f, 1.7f, 0f);
-            Camera.main.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            m_Camera.gameObject.SetActive(false);
+            enabled = false;
+            return;
         }
+
+        m_CharacterController = GetComponent<CharacterController>();
     } 
 
     // Update is called once per frame
@@ -44,7 +53,7 @@ public class PlayerMovement : NetworkBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = transform.right * horizontal + transform.forward * vertical;
-        controller.SimpleMove(direction * speed);
+        m_CharacterController.SimpleMove(direction * speed);
     }
     
     private void MouseInput()
@@ -55,7 +64,7 @@ public class PlayerMovement : NetworkBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        Camera.main.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        m_Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
     }
 

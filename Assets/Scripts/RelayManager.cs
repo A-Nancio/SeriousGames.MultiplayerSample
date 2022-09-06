@@ -46,6 +46,7 @@ public class RelayManager : Singleton<RelayManager>
         };
 
         relayHostData.JoinCode = await Relay.Instance.GetJoinCodeAsync(relayHostData.AllocationID);
+        Debug.Log("Join code is " + relayHostData.JoinCode);
         SessionCode = relayHostData.JoinCode;
         Transport.SetRelayServerData(relayHostData.IPv4Address, relayHostData.Port, relayHostData.AllocationIDBytes,
                 relayHostData.Key, relayHostData.ConnectionData);

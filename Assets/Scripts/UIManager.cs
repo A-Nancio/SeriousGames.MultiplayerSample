@@ -12,45 +12,16 @@ public class UIManager : MonoBehaviour
     void OnGUI()
     {
         GUILayout.BeginArea(new Rect(10, 10, 300, 300));
-        if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
-        {
-            StartButtons();
-        }
-        else
-        {
-            StatusLabels();
-        }
+        StatusLabels();
+        //if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
+        //{
+        //    StartButtons();
+        //}
+        //else
+        //{
+        //}
 
         GUILayout.EndArea();
-    }
-
-    static async void StartButtons()
-    {
-        if (GUILayout.Button("Host"))
-        {
-            if (RelayManager.Instance.IsRelayEnabled)
-            {
-                await RelayManager.Instance.SetupRelay();
-            }
-            NetworkManager.Singleton.StartHost();
-        }
-        else if (GUILayout.Button("Server")) 
-        {
-            if (RelayManager.Instance.IsRelayEnabled)
-            {
-                await RelayManager.Instance.SetupRelay();
-            }
-            NetworkManager.Singleton.StartServer();
-        }
-        JoinCode = GUILayout.TextField(JoinCode, 10);
-        if (GUILayout.Button("Client"))
-        {
-            if (RelayManager.Instance.IsRelayEnabled && !string.IsNullOrEmpty(JoinCode))
-            {
-                await RelayManager.Instance.JoinRelay(JoinCode);
-            }
-            NetworkManager.Singleton.StartClient();
-        }
     }
 
     static void StatusLabels()
