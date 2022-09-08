@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &295519967
+--- !u!1001 &884816379
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 898413307719856745, guid: 4f649f1156076c544bf3a989ecd3a09f, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 898413307719856745, guid: 4f649f1156076c544bf3a989ecd3a09f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -178,14 +178,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
-    - target: {fileID: 1288773488011813486, guid: 4f649f1156076c544bf3a989ecd3a09f, type: 3}
-      propertyPath: NetworkConfig.PlayerPrefab
-      value: 
-      objectReference: {fileID: 2255991852033553856, guid: 7527d4f93a64f4f4ebfef96d1d58d25d, type: 3}
-    - target: {fileID: 1288773488011813486, guid: 4f649f1156076c544bf3a989ecd3a09f, type: 3}
-      propertyPath: NetworkConfig.NetworkPrefabs.Array.data[0].Prefab
-      value: 
-      objectReference: {fileID: 2255991852033553856, guid: 7527d4f93a64f4f4ebfef96d1d58d25d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f649f1156076c544bf3a989ecd3a09f, type: 3}
 --- !u!1001 &7142998456723300128
@@ -205,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7142998457546055894, guid: 09ec3ceb618df9c6aaed125797057f2a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7142998457546055894, guid: 09ec3ceb618df9c6aaed125797057f2a, type: 3}
       propertyPath: m_LocalPosition.x
