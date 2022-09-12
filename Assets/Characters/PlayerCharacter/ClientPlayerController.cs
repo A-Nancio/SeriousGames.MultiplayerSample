@@ -1,10 +1,13 @@
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
 [RequireComponent(typeof(NetworkObject))]
 [RequireComponent(typeof(ClientNetworkTransform))]
-public class PlayerController : NetworkBehaviour
+[RequireComponent(typeof(ServerPlayerController))]
+[DefaultExecutionOrder(1)] // after server component
+public class ClientPlayerController : NetworkBehaviour
 {   
     [SerializeField]
     private Animator animator;
@@ -17,13 +20,14 @@ public class PlayerController : NetworkBehaviour
     [SerializeField]
     private Camera m_Camera;
     private float xRotation = 0f;
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity = 200f;
 
     public override void OnNetworkSpawn()
     {   
         base.OnNetworkSpawn();
         if (!IsOwner)
         {
+            enabled = false;
             m_Camera.gameObject.SetActive(false);
             return;
         }

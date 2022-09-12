@@ -1446,9 +1446,10 @@ GameObject:
   - component: {fileID: -8294284214141388783}
   - component: {fileID: 8955629974118668288}
   - component: {fileID: 5550987118718056127}
-  - component: {fileID: -7284655703402781843}
   - component: {fileID: 8194910545240901831}
   - component: {fileID: -4727934923978809589}
+  - component: {fileID: 3929903184725033215}
+  - component: {fileID: 5644678540236908419}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1509,7 +1510,7 @@ CharacterController:
   m_Height: 1.9
   m_Radius: 0.3
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.01
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
@@ -1555,22 +1556,6 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
---- !u!114 &-7284655703402781843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6316832484528421881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a03d3b048b2d297292c81a2378fd679, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 6586668922957448886}
-  speed: 3
-  m_Camera: {fileID: 2702096932624234532}
-  mouseSensitivity: 100
 --- !u!114 &8194910545240901831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1597,6 +1582,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 1015298520334140028, guid: dc5e81a97524c488aa5b67767c2aa0b8, type: 3}
+--- !u!114 &3929903184725033215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6316832484528421881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed9e112e603b6fc4d8802ed11c296c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6586668922957448886}
+  speed: 6
+  m_Camera: {fileID: 2702096932624234532}
+  mouseSensitivity: 200
+--- !u!114 &5644678540236908419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6316832484528421881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b490600bf8f38237eb7caf4814382021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjPickedUp:
+    m_InternalValue: 0
 --- !u!1 &6446812738795767022
 GameObject:
   m_ObjectHideFlags: 0
