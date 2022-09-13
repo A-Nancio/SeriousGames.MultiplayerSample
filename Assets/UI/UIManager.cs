@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    private static string JoinCode = "Join Code";
     public void Start()
     {
         Screen.fullScreenMode = FullScreenMode.Windowed;
@@ -13,14 +12,6 @@ public class UIManager : MonoBehaviour
     {
         GUILayout.BeginArea(new Rect(10, 10, 300, 300));
         StatusLabels();
-        //if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
-        //{
-        //    StartButtons();
-        //}
-        //else
-        //{
-        //}
-
         GUILayout.EndArea();
     }
 

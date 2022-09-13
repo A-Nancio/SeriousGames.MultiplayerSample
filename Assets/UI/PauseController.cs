@@ -16,11 +16,13 @@ public class PauseController : MonoBehaviour
             if(GameIsPaused) 
             {
                 pauseScreen.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
                 GameIsPaused = false;
             }
             else 
             {
                 pauseScreen.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
                 GameIsPaused = true;
             }
         }
