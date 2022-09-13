@@ -15,13 +15,6 @@ public class ServerPlayerController : NetworkBehaviour
     public NetworkVariable<bool> ObjPickedUp = new NetworkVariable<bool>();
     private NetworkObject m_PickedUpObj;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -38,7 +31,7 @@ public class ServerPlayerController : NetworkBehaviour
                 Debug.Log("picking up");
                 // todo use non-alloc, don't do the below at home
                 // detect nearby ingredients
-                var hit = Physics.OverlapSphere(transform.position, 8, LayerMask.GetMask(new[] {"PickupItems"}), QueryTriggerInteraction.Ignore);
+                var hit = Physics.OverlapSphere(transform.position, 2, LayerMask.GetMask(new[] {"PickupItems"}), QueryTriggerInteraction.Ignore);
                 if (hit.Length > 0)
                 {
                     Debug.Log("picked");
@@ -65,7 +58,7 @@ public class ServerPlayerController : NetworkBehaviour
         objToPickup.GetComponent<Rigidbody>().isKinematic = true;
         objToPickup.transform.parent = transform;
         objToPickup.GetComponent<NetworkTransform>().InLocalSpace = true;
-        objToPickup.transform.localPosition = Vector3.up;
+        objToPickup.transform.localPosition = new Vector3(0, 1, 1);
         ObjPickedUp.Value = true;
         m_PickedUpObj = objToPickup;
     }
@@ -76,7 +69,6 @@ public class ServerPlayerController : NetworkBehaviour
         if (m_PickedUpObj != null)
         {
             // can be null if enter drop zone while carying
-            m_PickedUpObj.transform.localPosition = new Vector3(0, 0, 2);
             m_PickedUpObj.transform.parent = null;
             m_PickedUpObj.GetComponent<Rigidbody>().isKinematic = false;
             m_PickedUpObj.GetComponent<NetworkTransform>().InLocalSpace = false;
